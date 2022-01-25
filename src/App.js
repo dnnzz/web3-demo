@@ -1,17 +1,23 @@
 import './App.css';
 import React from 'react';
-import { useWeb3React } from "@web3-react/core"
-import { injected } from './connectors/connector';
+import { useWeb3React } from "@web3-react/core";
+import {injected} from './connectors/connector';
+import {useNavigate} from "react-router-dom";
 
 function App() {
+  const navigate= useNavigate();
   const [installed, setInstalled] = React.useState(false);
+  const { active, account, activate} = useWeb3React();
   React.useEffect(() => {
     if (Boolean(window.ethereum && window.ethereum.isMetaMask)) {
       setInstalled(true);
     }
   }, []);
-  const { active, account, library,  activate, deactivate } = useWeb3React()
-
+  React.useEffect(() => {
+    if(active){
+      navigate(`/${account}`);
+    }
+  },[active]);
   async function connect() {
     try {
       await activate(injected)
@@ -20,23 +26,12 @@ function App() {
     }
   }
 
-  async function disconnect() {
-    try {
-      deactivate()
-    } catch (ex) {
-      console.log(ex)
-    }
-  }
   return (
-    <div className="App">
-      {installed ? <button onClick={connect}>Connect your metamask wallet</button>:
+      <main>
+      {installed ? <button className='button' onClick={connect}>Connect your metamask wallet</button>:
       <h1>Please install metamask</h1>}
-      {account && 
-      <>
-      <h1>{account}</h1>
-      <button onClick={(e) => library.eth.getBalance(account).then(data => console.log(data)) }>get balance</button>
-      </>}
-    </div>
+      <h2>{account}</h2>
+      </main>
   );
 }
 
