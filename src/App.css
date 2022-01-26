@@ -29,3 +29,9 @@ main {
   flex-direction: column;
   justify-content: center;
 }
+.form {
+  margin-top: 5%;
+}
+.disc-btn{
+  margin-top: 5%;
+}

@@ -30,7 +30,6 @@ function App() {
       <main>
       {installed ? <button className='button' onClick={connect}>Connect your metamask wallet</button>:
       <h1>Please install metamask</h1>}
-      <h2>{account}</h2>
       </main>
   );
 }
