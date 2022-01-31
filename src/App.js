@@ -12,6 +12,10 @@ function App() {
     if (Boolean(window.ethereum && window.ethereum.isMetaMask)) {
       setInstalled(true);
     }
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      setInstalled(true);
+      window.open("https://metamask.app.link/dapp/web3-demo-lemon.vercel.app/");
+    }
   }, []);
   React.useEffect(() => {
     if(active){
